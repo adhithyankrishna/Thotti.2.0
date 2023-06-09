@@ -113,7 +113,7 @@ const Chat = ({ firestore }) => {
         {messages.map((message, index) => (
           <div className="message" key={index}>
 
-            <p>{}</p>
+            <p>{message.text}</p>
             <div class='fileli'>
             {message.file && (
               <a href={message.file} download>
