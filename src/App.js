@@ -23,8 +23,10 @@ console.log("hai")
 function App() {
   return (
     <div className="App">
+      <div className='top'>
        <Top />
-      <header className="App-header">
+       </div>
+        <header className="App-header">
        
         <Chat firestore={firestore} /> 
       </header>
