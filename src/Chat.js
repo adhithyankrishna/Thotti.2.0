@@ -93,9 +93,19 @@ const Chat = ({ firestore }) => {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    const fileName = selectedFile.name;
-    setFilename(fileName);
-    setFile(selectedFile);
+    if (selectedFile) {
+      const fileName = selectedFile.name;
+      setFilename(fileName);
+      setFile(selectedFile);
+    }
+  };
+  
+  const handleKeyPress = (e) => {
+    
+    if (e.key === 'Enter') {
+      
+      handleSendMessage();
+    }
   };
 
   const scrollToBottom = () => {
@@ -134,9 +144,12 @@ const Chat = ({ firestore }) => {
         <input placeholder='Enter the message'
           type="text"
           value={newMessage}
+          onKeyDown={handleKeyPress}
           onChange={(e) => setNewMessage(e.target.value) }
         />
-        <input type="file" onChange={handleFileChange} />
+        <input type="file" onChange={handleFileChange} onKeyDown={handleKeyPress} />
+        
+        
         <button onClick={handleSendMessage}>Send</button>
       </div>
       
