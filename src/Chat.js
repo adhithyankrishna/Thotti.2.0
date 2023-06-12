@@ -3,6 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/storage';
+import { useDropzone } from 'react-dropzone';
 
 const Chat = ({ firestore }) => {
   const [messages, setMessages] = useState([]);
@@ -41,24 +42,31 @@ const Chat = ({ firestore }) => {
   
       const uploadTask = fileRef.put(file);
   
-      uploadTask.then(() => {
-        // When the upload is complete, get the file download URL
-        uploadTask.snapshot.ref.getDownloadURL().then((fileUrl) => {
-          messageData.file = fileUrl;
-          messageData.filename = filename;
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Track the upload progress here if needed
+        },
+        (error) => {
+          // Handle any errors that occur during the upload
+          console.error('Error uploading file:', error);
+          alert('Something bad happened');
+        },
+        () => {
+          // When the upload is complete, get the file download URL
+          uploadTask.snapshot.ref.getDownloadURL().then((fileUrl) => {
+            messageData.file = fileUrl;
+            messageData.filename = filename;
   
-          // Add the message to Firestore
-          firestore.collection('chat').add(messageData).then(() => {
-            // Reset the input values
-            setNewMessage('');
-            setFile(null);
+            // Add the message to Firestore
+            firestore.collection('chat').add(messageData).then(() => {
+              // Reset the input values
+              setNewMessage('');
+              setFile(null);
+            });
           });
-        });
-      }).catch((error) => {
-        // Handle any errors that occur during the upload
-        console.error('Error uploading file:', error);
-        alert('Something bad happened');
-      });
+        }
+      );
     } else {
       // If there is no file, simply add the message to Firestore
       await firestore.collection('chat').add(messageData);
@@ -69,9 +77,8 @@ const Chat = ({ firestore }) => {
     }
   };
   
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
+  const handleDrop = (acceptedFiles) => {
+    const selectedFile = acceptedFiles[0];
     if (selectedFile) {
       const fileName = selectedFile.name;
       setFilename(fileName);
@@ -90,6 +97,8 @@ const Chat = ({ firestore }) => {
       inputContainerRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop: handleDrop });
 
   return (
     <div className="chat-container">
@@ -118,7 +127,10 @@ const Chat = ({ firestore }) => {
           onKeyDown={handleKeyPress}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        <input type="file" onChange={handleFileChange} onKeyDown={handleKeyPress} />
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          <p>Drag and drop a file here, or click to select a file</p>
+        </div>
         <button onClick={handleSendMessage}>Send</button>
       </div>
     </div>
