@@ -3,15 +3,15 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/storage';
-import { LineProgressBar } from '@frogress/line';
+//import { LineProgressBar } from '@frogress/line';
 
 const Chat = ({ firestore }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [file, setFile] = useState(null);
   const [filename, setFilename] = useState(null);
-  const [progress, setProgress] = useState(0);
-  const [showProgressBar, setShowProgressBar] = useState(false);
+ // const [progress, setProgress] = useState(0);
+ // const [showProgressBar, setShowProgressBar] = useState(false);
   const chatContainerRef = useRef(null);
   const inputContainerRef = useRef(null);
   
@@ -56,8 +56,8 @@ const Chat = ({ firestore }) => {
           );
   
           // Update the progress state
-          setProgress(progress);
-          setShowProgressBar(true);
+        //  setProgress(progress);
+         // setShowProgressBar(true);
         },
         (error) => {
           // Handle any errors that occur during the upload
