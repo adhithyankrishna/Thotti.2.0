@@ -3,7 +3,9 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/storage';
-import { useDropzone } from 'react-dropzone';
+
+import ProgressBar from "@ramonak/react-progress-bar";
+
 
 const Chat = ({ firestore }) => {
   const [messages, setMessages] = useState([]);
@@ -12,7 +14,8 @@ const Chat = ({ firestore }) => {
   const [filename, setFilename] = useState(null);
   const chatContainerRef = useRef(null);
   const inputContainerRef = useRef(null);
-  
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
     const unsubscribe = firestore
       .collection('chat')
@@ -20,7 +23,7 @@ const Chat = ({ firestore }) => {
       .onSnapshot((snapshot) => {
         const messageList = snapshot.docs.map((doc) => doc.data());
         setMessages(messageList);
-        
+
         // Scroll to the end of the chat container
         if (chatContainerRef.current) {
           chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -34,22 +37,27 @@ const Chat = ({ firestore }) => {
       text: newMessage,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
-  
+
     if (file) {
       const storageRef = firebase.storage().ref();
       const folderRef = storageRef.child('files');
       const fileRef = folderRef.child(file.name);
-  
+
       const uploadTask = fileRef.put(file);
-  
+
       uploadTask.on(
         'state_changed',
         (snapshot) => {
-          // Track the upload progress here if needed
+          // Calculate the progress percentage
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+
+          // Update the progress state
+          setProgress(progress);
         },
         (error) => {
           // Handle any errors that occur during the upload
-          console.error('Error uploading file:', error);
           alert('Something bad happened');
         },
         () => {
@@ -57,12 +65,13 @@ const Chat = ({ firestore }) => {
           uploadTask.snapshot.ref.getDownloadURL().then((fileUrl) => {
             messageData.file = fileUrl;
             messageData.filename = filename;
-  
+
             // Add the message to Firestore
             firestore.collection('chat').add(messageData).then(() => {
               // Reset the input values
               setNewMessage('');
               setFile(null);
+              setProgress(0);
             });
           });
         }
@@ -70,22 +79,22 @@ const Chat = ({ firestore }) => {
     } else {
       // If there is no file, simply add the message to Firestore
       await firestore.collection('chat').add(messageData);
-  
+
       // Reset the input values
       setNewMessage('');
       setFile(null);
     }
   };
-  
-  const handleDrop = (acceptedFiles) => {
-    const selectedFile = acceptedFiles[0];
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
     if (selectedFile) {
       const fileName = selectedFile.name;
       setFilename(fileName);
       setFile(selectedFile);
     }
   };
-  
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();
@@ -98,12 +107,12 @@ const Chat = ({ firestore }) => {
     }
   };
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop: handleDrop });
-
   return (
     <div className="chat-container">
       <div className="scroll-button-container">
-        <button onClick={scrollToBottom} className="scroll">Scroll to End</button>
+        <button onClick={scrollToBottom} className="scroll">
+          Scroll to End
+        </button>
       </div>
       <div className="messages-container" ref={chatContainerRef}>
         {messages.map((message, index) => (
@@ -119,6 +128,9 @@ const Chat = ({ firestore }) => {
           </div>
         ))}
       </div>
+      <div>
+     <ProgressBar completed={progress} />
+    </div>
       <div className="input-container" ref={inputContainerRef}>
         <input
           placeholder="Enter the message"
@@ -127,10 +139,7 @@ const Chat = ({ firestore }) => {
           onKeyDown={handleKeyPress}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        <div {...getRootProps()}>
-          <input {...getInputProps()} />
-          <p>Drag and drop a file here, or click to select a file</p>
-        </div>
+        <input type="file" onChange={handleFileChange} onKeyDown={handleKeyPress} />
         <button onClick={handleSendMessage}>Send</button>
       </div>
     </div>
