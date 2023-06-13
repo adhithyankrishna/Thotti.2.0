@@ -129,7 +129,8 @@ const Chat = ({ firestore }) => {
         ))}
       </div>
       <div>
-     <ProgressBar completed={progress} />
+      {progress > 0 && <ProgressBar completed={progress} />}
+
     </div>
       <div className="input-container" ref={inputContainerRef}>
         <input
