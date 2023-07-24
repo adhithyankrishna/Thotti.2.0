@@ -1,26 +1,23 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .message{
   display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+
+  justify-content: space-between;
 }
-.item {
-  
+.item { 
   margin-right: 10px;
+ 
+}
+
+.fileli {
+  color: #ffffff;
+}
+
+.deletebut {
+  width: 20%;
+  height: 30%;
+
 }
 
 .App-header {
@@ -36,26 +33,6 @@
   color: white;
 }
 
-.App-link {
-  color: red;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.prog{
-  
-  height: 100%;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  
-}
 
 .input-container{
 
@@ -90,12 +67,6 @@
   
 }
 
-.fileli{
-  border: 2px solid black;
-  border-radius: 9px;
-  box-sizing: border-box;
-  background-color: #9DB2BF;
-}
 
 a {
   color:#282c34 ; /* Link color */
@@ -160,13 +131,14 @@ a:visited {
   background-color: #484786;
 }
 .input-container button:hover {
-  backgroumnd-color: rgb(150, 42, 42);
+  background-color: rgb(150, 42, 42);
 
 }
 
 .top{
   background-color: #9DB2BF;
   width: 100%;
+  justify-content: center;
 }
 .top img {
   background-color: #484786;
@@ -182,7 +154,8 @@ a:visited {
   height: 40PX;
   width: 100%;
   background-color: #9DB2BF;
-  margin-bottom: 50px;
+  margin-top: 0%;
+  align-items:flex-start;
 }
 
 .scroll {
@@ -199,19 +172,14 @@ a:visited {
   
 }
 
-.fileli{
-  border: 2px solid black;
-  border-radius: 9px;
-  box-sizing: border-box;
-  background-color: #9DB2BF;
-}
+
 
 a {
-  color:#282c34 ; /* Link color */
+  color:#dddfe4 ; /* Link color */
 }
 
 a:visited {
-  color: purple; /* Visited link color */
+  color: rgb(184, 144, 184); /* Visited link color */
 }
 
 
@@ -269,3 +237,25 @@ a:visited {
 .input-container button:hover {
   background-color: black;
 }
+
+
+.chat-container{
+  width: 40%;
+  height: 100%;
+  margin-top: 10%;
+  margin-left: 20%;
+  margin-right: 20%;
+  align-items: baseline;
+  flex-direction: row;
+
+  
+}
+
+.message-container{
+  width: 50%;
+  margin-top: 10%;
+    margin-left: 20%;
+    margin-right: 20%;
+  color: #9DB2BF;
+}
+

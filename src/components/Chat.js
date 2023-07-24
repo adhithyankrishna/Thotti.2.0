@@ -3,8 +3,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
-import menubar from "./menubar";
-
 import ProgressBar from "@ramonak/react-progress-bar";
 
 const Chat = ({ firestore }) => {
@@ -21,7 +19,10 @@ const Chat = ({ firestore }) => {
       .collection("chat")
       .orderBy("timestamp")
       .onSnapshot((snapshot) => {
-        const messageList = snapshot.docs.map((doc) => doc.data());
+        const messageList = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setMessages(messageList);
         if (chatContainerRef.current) {
           chatContainerRef.current.scrollTop =
@@ -86,6 +87,19 @@ const Chat = ({ firestore }) => {
       setNewMessage("");
       setFile(null);
     }
+
+    scrollToBottom();
+  };
+
+  const delete_fun = async (mes) => {
+    if (mes.file) {
+      const storage = firebase.storage();
+      const fileref = storage.refFromURL(mes.file);
+      await fileref.delete();
+      await firestore.collection("chat").doc(mes.id).delete();
+    } else {
+      await firestore.collection("chat").doc(mes.id).delete();
+    }
   };
 
   const handleFileChange = (e) => {
@@ -105,12 +119,11 @@ const Chat = ({ firestore }) => {
 
   const scrollToBottom = () => {
     if (inputContainerRef.current) {
-      inputContainerRef.current.scrollIntoView({ behavior: "smooth" });
+      inputContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
-  };
-
-  const pop = async (message) => {
-    await firestore.collection("chat").doc(message.id).delete();
   };
 
   return (
@@ -126,17 +139,20 @@ const Chat = ({ firestore }) => {
             <div className="item">
               <p>{message.text}</p>
             </div>
-            <div className="item">
-              <button on> Delete</button>
-            </div>
 
             <div className="fileli">
               {message.file && (
-                <a href={message.file} download>
-                  {message.filename}
-                </a>
+                <row>
+                  <a href={message.file} download>
+                    📁 {message.filename}
+                  </a>
+                </row>
               )}
             </div>
+            <button className="deletebut" onClick={() => delete_fun(message)}>
+              {" "}
+              delete
+            </button>
           </div>
         ))}
       </div>

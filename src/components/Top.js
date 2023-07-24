@@ -4,7 +4,9 @@ import topimg from "../assets/topimg.png";
 const Top = () => {
   return (
     <div className="top">
-      <img src={topimg} alt="logo" />
+      <center>
+        <img src={topimg} alt="logo" />
+      </center>
     </div>
   );
 };
