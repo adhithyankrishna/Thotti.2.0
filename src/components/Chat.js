@@ -150,7 +150,6 @@ const Chat = ({ firestore }) => {
               )}
             </div>
             <button className="deletebut" onClick={() => delete_fun(message)}>
-              {" "}
               delete
             </button>
           </div>

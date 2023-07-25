@@ -5,6 +5,7 @@ import "./App.css";
 import Top from "./components/Top";
 import Chat from "./components/Chat";
 import React from "react";
+import Home from "./components/Home";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAoKkzM6WHyexNTq_vhHZXeag4DFfyR2zw",
@@ -24,6 +25,7 @@ function App() {
     <div className="App">
       <div className="top">
         <Top />
+        <Home />
       </div>
       <header className="App-header">
         <Chat firestore={firestore} />
