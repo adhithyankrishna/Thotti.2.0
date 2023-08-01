@@ -4,8 +4,10 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import ProgressBar from "@ramonak/react-progress-bar";
+import SplineCanvas from "./SplineCanvas";
+import { useParams } from "react-router-dom";
 
-const Chat = ({ firestore }) => {
+const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [file, setFile] = useState(null);
@@ -13,10 +15,14 @@ const Chat = ({ firestore }) => {
   const chatContainerRef = useRef(null);
   const inputContainerRef = useRef(null);
   const [progress, setProgress] = useState(0);
+  const firestore = firebase.firestore();
+  const { room, pin } = useParams();
 
   useEffect(() => {
     const unsubscribe = firestore
       .collection("chat")
+      .where("room", "==", room)
+      .where("pin", "==", pin)
       .orderBy("timestamp")
       .onSnapshot((snapshot) => {
         const messageList = snapshot.docs.map((doc) => ({
@@ -29,13 +35,16 @@ const Chat = ({ firestore }) => {
             chatContainerRef.current.scrollHeight;
         }
       });
+    console.log(unsubscribe);
     return () => unsubscribe();
-  }, [firestore]);
+  }, [firestore, pin, room]);
 
   const handleSendMessage = async () => {
     const messageData = {
       text: newMessage,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      room: room,
+      pin: pin,
     };
 
     if (file) {
@@ -128,48 +137,61 @@ const Chat = ({ firestore }) => {
 
   return (
     <div className="chat-container">
+      <div className="roomname">{room}</div>
       <div className="scroll-button-container">
         <button onClick={scrollToBottom} className="scroll">
           Scroll to End
         </button>
       </div>
-      <div className="messages-container" ref={chatContainerRef}>
-        {messages.map((message, index) => (
-          <div className="message" key={index}>
-            <div className="item">
-              <p>{message.text}</p>
-            </div>
+      <div className="mid-c">
+        <div className="chat-a">
+          <div className="messages-container" ref={chatContainerRef}>
+            {messages.map((message, index) => (
+              <div className="message" key={index}>
+                <div className="item">
+                  <p>{message.text}</p>
+                </div>
 
-            <div className="fileli">
-              {message.file && (
-                <row>
-                  <a href={message.file} download>
-                    📁 {message.filename}
-                  </a>
-                </row>
-              )}
-            </div>
-            <button className="deletebut" onClick={() => delete_fun(message)}>
-              delete
+                <div className="fileli">
+                  {message.file && (
+                    <a href={message.file} download>
+                      📁 {message.filename}
+                    </a>
+                  )}
+                </div>
+                <button
+                  className="deletebut"
+                  onClick={() => delete_fun(message)}
+                >
+                  🗑️
+                </button>
+              </div>
+            ))}
+          </div>
+          <div>{progress > 0 && <ProgressBar completed={progress} />}</div>
+          <div className="input-container" ref={inputContainerRef}>
+            <input
+              className="chat-input"
+              placeholder="Enter the message"
+              type="text"
+              value={newMessage}
+              onKeyDown={handleKeyPress}
+              onChange={(e) => setNewMessage(e.target.value)}
+            />
+            <input
+              className="file-i"
+              type="file"
+              onChange={handleFileChange}
+              onKeyDown={handleKeyPress}
+            />
+            <button className="sendBut" onClick={handleSendMessage}>
+              Send
             </button>
           </div>
-        ))}
-      </div>
-      <div>{progress > 0 && <ProgressBar completed={progress} />}</div>
-      <div className="input-container" ref={inputContainerRef}>
-        <input
-          placeholder="Enter the message"
-          type="text"
-          value={newMessage}
-          onKeyDown={handleKeyPress}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <input
-          type="file"
-          onChange={handleFileChange}
-          onKeyDown={handleKeyPress}
-        />
-        <button onClick={handleSendMessage}>Send</button>
+        </div>
+        <div className="logo-c">
+          <SplineCanvas />
+        </div>
       </div>
     </div>
   );

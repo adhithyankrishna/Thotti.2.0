@@ -2,10 +2,10 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "./App.css";
-import Top from "./components/Top";
 import Chat from "./components/Chat";
 import React from "react";
-//import Home from "./components/Home";
+import Landing from "./components/Landing";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAoKkzM6WHyexNTq_vhHZXeag4DFfyR2zw",
@@ -18,16 +18,17 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const firestore = firebase.firestore();
 
 function App() {
   return (
     <div className="App">
-      <div className="top">
-        <Top />
-      </div>
       <header className="App-header">
-        <Chat firestore={firestore} />
+        <Router>
+          <Routes>
+            <Route path="/" Component={Landing} />
+            <Route path="/chat/:room/:pin" Component={Chat} />
+          </Routes>
+        </Router>
       </header>
     </div>
   );
