@@ -33,8 +33,12 @@ const Landing = () => {
 
   useEffect(() => {
     const rooms = cookies.roomList;
-    console.log("Cookie Data:", rooms);
-    setRoomList(rooms);
+    try {
+      const parsedRooms = JSON.parse(rooms);
+      setRoomList(parsedRooms || []);
+    } catch (error) {
+      setRoomList([]);
+    }
   }, [cookies.roomList]);
 
   const createroom = async () => {
