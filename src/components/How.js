@@ -5,9 +5,10 @@ const How = () => {
   return (
     <div className="how">
       <div className="title-d">
-        Embrace Thotti: Unleash Your Creativity Within
+        T-Textual<br></br>H-Hub for<br></br>O-Organized<br></br>T-Talking and<br></br>T-Texting<br></br>I-Instant Messaging.
       </div>
-      <div className="desc">
+      <br></br>
+      <div className="desc1" align="justify">
         Thotti is a revolutionary chatting application designed to elevate your
         communication experience like never before. With Thotti, you can
         effortlessly create personalized chat rooms and set unique pins,

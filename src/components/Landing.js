@@ -106,7 +106,7 @@ const Landing = () => {
         <Nav />
         <div className="title" ref={textRef}>
           <h1>THOTTI</h1>
-          <h3 className="subtitle">
+          <h3 className="subtitle" align="justify">
             "Chatting is the art of saying nothing when you have nothing to
             say."
           </h3>

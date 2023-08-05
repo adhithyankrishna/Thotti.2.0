@@ -371,8 +371,8 @@ nav{
     margin-left: 10;
     padding-left: 10%;
     padding-top: 0%;
-    font-size: 700%;
-    width: 60%;
+    font-size: 500%;
+    width: 80%;
     background-image: -webkit-linear-gradient(left, #ff0080, #8000ff, rgb(253, 236, 0));
     -webkit-background-clip: text;
     background-clip: text;
@@ -384,7 +384,7 @@ nav{
     -webkit-background-clip: text;
     background-clip: text;
     color: rgba(255, 255, 255, 0.575);
-    
+    backdrop-filter: "blur(10px)";
     justify-content: center;
     font-size:x-large;
     font-weight: 400;
@@ -418,6 +418,18 @@ nav{
     padding: 1%;
     border-radius: 10px;
   
+}
+
+.desc1{
+  box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+    backdrop-filter: "blur(50px)";
+    width: 80%;
+    height: 30%;
+    margin-left: 5%;
+    padding: 1%;
+    font-size: larger;
+    border-radius: 30px;
 }
 
 .roomlist{

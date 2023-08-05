@@ -21,7 +21,7 @@ const Rooms = () => {
       <div className="room">
         <div className="room-ti">
           <h1 className="room-ti">
-            {roomList ? "Rooms List" : "Rooms are Not Avaailable. "}
+            {roomList ? "Rooms List" : "Rooms are Not Available. "}
           </h1>
         </div>
         <div className="rooms-container">

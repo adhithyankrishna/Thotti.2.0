@@ -4,7 +4,7 @@ const Nav = () => {
   return (
     <div className="nav">
       <button>HOME</button>
-      <button>Explore</button>
+      <button>EXPLORE</button>
       <button> ABOUT US</button>
     </div>
   );
