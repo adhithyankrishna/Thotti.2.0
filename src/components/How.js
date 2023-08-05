@@ -3,7 +3,7 @@ import "../App.css";
 
 const How = () => {
   return (
-    <div className="how">
+    <div className="how" id="how-s">
       <div className="title-d">
         Embrace Thotti: Unleash Your Creativity Within
       </div>

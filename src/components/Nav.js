@@ -1,11 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
+  const handleScrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="nav">
-      <button>HOME</button>
-      <button>Explore</button>
-      <button> ABOUT US</button>
+      <button onClick={() => handleScrollToSection("home-s")}>HOME</button>
+      <Link to="/how">e</Link>
+      <button onClick={() => handleScrollToSection("about-s")}>ABOUT US</button>
     </div>
   );
 };

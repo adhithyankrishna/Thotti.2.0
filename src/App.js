@@ -6,6 +6,7 @@ import Chat from "./components/Chat";
 import React from "react";
 import Landing from "./components/Landing";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import How from "./components/How";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAoKkzM6WHyexNTq_vhHZXeag4DFfyR2zw",
@@ -27,6 +28,7 @@ function App() {
           <Routes>
             <Route path="/" Component={Landing} />
             <Route path="/chat/:room/:pin" Component={Chat} />
+            <Route path="/how" Component={How} />
           </Routes>
         </Router>
       </header>

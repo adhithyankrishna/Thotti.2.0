@@ -5,7 +5,7 @@ import "firebase/compat/auth";
 import "firebase/compat/storage";
 import ProgressBar from "@ramonak/react-progress-bar";
 import SplineCanvas from "./SplineCanvas";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -154,9 +154,9 @@ const Chat = () => {
 
                 <div className="fileli">
                   {message.file && (
-                    <a href={message.file} download>
+                    <Link target="_blank" to={message.file} download>
                       📁 {message.filename}
-                    </a>
+                    </Link>
                   )}
                 </div>
                 <button
@@ -169,25 +169,25 @@ const Chat = () => {
             ))}
           </div>
           <div>{progress > 0 && <ProgressBar completed={progress} />}</div>
-          <div className="input-container" ref={inputContainerRef}>
-            <input
-              className="chat-input"
-              placeholder="Enter the message"
-              type="text"
-              value={newMessage}
-              onKeyDown={handleKeyPress}
-              onChange={(e) => setNewMessage(e.target.value)}
-            />
-            <input
-              className="file-i"
-              type="file"
-              onChange={handleFileChange}
-              onKeyDown={handleKeyPress}
-            />
-            <button className="sendBut" onClick={handleSendMessage}>
-              Send
-            </button>
-          </div>
+        </div>
+        <div className="input-container">
+          <textarea
+            className="chat-input"
+            placeholder="Enter the message"
+            type="textarea"
+            value={newMessage}
+            onKeyDown={handleKeyPress}
+            onChange={(e) => setNewMessage(e.target.value)}
+          />
+          <input
+            className="file-i"
+            type="file"
+            onChange={handleFileChange}
+            onKeyDown={handleKeyPress}
+          />
+          <button className="sendBut" onClick={handleSendMessage}>
+            Send
+          </button>
         </div>
         <div className="logo-c">
           <SplineCanvas />
