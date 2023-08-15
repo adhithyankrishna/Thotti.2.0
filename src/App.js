@@ -7,6 +7,7 @@ import React from "react";
 import Landing from "./components/Landing";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import How from "./components/How";
+import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAoKkzM6WHyexNTq_vhHZXeag4DFfyR2zw",
@@ -21,18 +22,21 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 function App() {
+  const quaryclint = new  QueryClient();
   return (
-    <div className="App">
-      <header className="App-header">
-        <Router>
-          <Routes>
-            <Route path="/" Component={Landing} />
-            <Route path="/chat/:room/:pin" Component={Chat} />
-            <Route path="/how" Component={How} />
-          </Routes>
-        </Router>
-      </header>
-    </div>
+    <QueryClientProvider client={quaryclint} contextSharing={true}>
+      <div className="App">
+        <header className="App-header">
+          <Router>
+            <Routes>
+              <Route path="/" Component={Landing} />
+              <Route path="/chat/:room/:pin" Component={Chat} />
+              <Route path="/how" Component={How} />
+            </Routes>
+          </Router>
+        </header>
+      </div>
+    </QueryClientProvider>
   );
 }
 

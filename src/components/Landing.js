@@ -5,21 +5,18 @@ import { useNavigate } from "react-router-dom";
 import "../App.css";
 import SplineCanvas from "./SplineCanvas";
 import { gsap } from "gsap";
-import Nav from "./Nav";
 import How from "./How";
-import { useCookies } from "react-cookie";
-import Rooms from "./Rooms";
 
 const Landing = () => {
   const name = useRef();
   const code = useRef();
-  const navigate = useNavigate();
-  const firestore = firebase.firestore();
-  const [room, setRoom] = useState("");
-  const [pin, setPin] = useState("");
   const textRef = useRef();
-  const [cookies, setCookie] = useCookies(["roomList"]);
-  const [roomList, setRoomList] = useState([]);
+
+  const [isOpen, setisOpen] = useState(false);
+  const navigate = useNavigate();
+  const [pin, setPin] = useState("");
+  const [room, setRoom] = useState("");
+  const firestore = firebase.firestore();
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -31,16 +28,6 @@ const Landing = () => {
     );
   }, []);
 
-  useEffect(() => {
-    const rooms = cookies.roomList;
-    try {
-      const parsedRooms = JSON.parse(rooms);
-      setRoomList(parsedRooms || []);
-    } catch (error) {
-      setRoomList([]);
-    }
-  }, [cookies.roomList]);
-
   const createroom = async () => {
     const data = {
       name: room,
@@ -51,25 +38,35 @@ const Landing = () => {
     navigate(`/chat/${room}/${pin}`);
   };
 
-  const store = () => {
-    const roomData = {
-      roomName: room,
-      pinCode: pin,
-    };
-    setRoomList([...roomList, roomData]);
-    setCookie("roomList", JSON.stringify([...roomList, roomData]), {
-      path: "/",
-      expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-    });
-
-    console.log(cookies);
+  const pop = () => {
+    return (
+      <div className="popup">
+        <div className="popup-content">
+          <h1>We couldn't find { room }</h1>
+          <h3>Do you want to create new room</h3>
+          <button
+            onClick={() => {
+              setisOpen(false);
+            }}
+          >
+            No
+          </button>
+          <button
+            onClick={() => {
+              createroom();
+              setisOpen(false);
+            }}
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    );
   };
 
   const search = async () => {
-    setRoom(name.current.value);
-    setPin(code.current.value);
-
-    store();
+    setRoom(name.current.value.trim());
+    setPin(code.current.value.trim());
     const snapshot = await firestore
       .collection("room")
       .where("name", "==", room)
@@ -77,10 +74,7 @@ const Landing = () => {
       .get();
 
     if (snapshot.empty) {
-      const check = window.confirm("Do you want to create a room?");
-      if (check) {
-        createroom();
-      }
+      setisOpen(true);
     } else {
       navigate(`/chat/${room}/${pin}`);
     }
@@ -99,11 +93,17 @@ const Landing = () => {
 
   return (
     <>
+      <div>{isOpen ? pop() : null}</div>
+      <div className="nav">
+        <button>Home</button>
+        <button>Explore</button>
+        <button>About </button>
+        <button>Contact</button>
+      </div>
       <div className="logo">
         <SplineCanvas />
       </div>
       <div className="en">
-        <Nav />
         <div className="title" ref={textRef}>
           <h1>THOTTI</h1>
           <h3 className="subtitle" align="justify">
@@ -111,7 +111,6 @@ const Landing = () => {
             say."
           </h3>
         </div>
-
         <div className="mid">
           <div className="landing">
             <div className="linput">
@@ -136,9 +135,6 @@ const Landing = () => {
               </button>
             </div>
           </div>
-        </div>
-        <div className="roomlist">
-          <Rooms />
         </div>
         <How />
       </div>
