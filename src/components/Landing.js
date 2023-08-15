@@ -11,7 +11,8 @@ const Landing = () => {
   const name = useRef();
   const code = useRef();
   const textRef = useRef();
-
+  const home = useRef();
+  const how = useRef();
   const [isOpen, setisOpen] = useState(false);
   const navigate = useNavigate();
   const [pin, setPin] = useState("");
@@ -38,11 +39,34 @@ const Landing = () => {
     navigate(`/chat/${room}/${pin}`);
   };
 
+  const navbar = () => {
+    return (
+      <div className="nav">
+        <button
+          onClick={() => {
+            home.current.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Home
+        </button>
+        <button
+          onClick={() => {
+            how.current.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Explore
+        </button>
+        <button>About </button>
+        <button>Contact</button>
+      </div>
+    );
+  };
+
   const pop = () => {
     return (
       <div className="popup">
         <div className="popup-content">
-          <h1>We couldn't find { room }</h1>
+          <h1>We couldn't find {room}</h1>
           <h3>Do you want to create new room</h3>
           <button
             onClick={() => {
@@ -94,16 +118,11 @@ const Landing = () => {
   return (
     <>
       <div>{isOpen ? pop() : null}</div>
-      <div className="nav">
-        <button>Home</button>
-        <button>Explore</button>
-        <button>About </button>
-        <button>Contact</button>
-      </div>
+      <div className="nav">{navbar()}</div>
       <div className="logo">
         <SplineCanvas />
       </div>
-      <div className="en">
+      <div className="en" ref={home}>
         <div className="title" ref={textRef}>
           <h1>THOTTI</h1>
           <h3 className="subtitle" align="justify">
@@ -136,7 +155,9 @@ const Landing = () => {
             </div>
           </div>
         </div>
-        <How />
+        <div ref={how}>
+          <How />
+        </div>
       </div>
     </>
   );

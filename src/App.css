@@ -23,20 +23,7 @@
   }
 }
 
-.navbar{
-  width: 100%;
-  background-color: rgba(255, 0, 0, 0);
-  margin-top: 0;
-  margin: 0;
-  align-items: center;
-  justify-content: center;
-  font-size: xx-large;
-  font-weight: 900;
-  .text-container {
-      animation: slideInFromBottom 1s ease;
-    }
-  
-}
+
 
 .App{
   height: 100vh;
@@ -332,10 +319,7 @@ margin: 0;
 
 }
 
-nav{
-  background-color: transparent;
 
-}
 
 .nav button{
 
@@ -467,7 +451,7 @@ nav{
 .popup-content {
   width: 40%;
   height: 30%;
- 
+ z-index: 150;
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
     background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.342), rgba(20, 19, 19, 0.274));
     backdrop-filter: "blur(10px)";
@@ -529,3 +513,29 @@ nav{
   width: 10%;
   height: 15%;
 }
+
+.nav-container {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.nav {
+  top: 0;
+  width: 100%;
+  
+  position: fixed;
+  padding: 10px 0;
+  z-index: 100;
+}
+
+.nav button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px 12px;
+}
+
