@@ -160,20 +160,20 @@ background-color: rgba(255, 0, 0, 0);
   border: none;
 }
 
-.deletebut{
-    font-size: x-large;
-    color: rgb(188, 141, 202);
-    right: 0;
-    font-weight: 300;
-    outline: none;
-    border: none;
-    background-color: rgba(250, 235, 215, 0);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.479),
-      0 0 20px rgba(255, 255, 255, 0.329),
-      0 0 30px rgba(255, 255, 255, 0.3);
-
+.deletebut {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: red;
+  padding: 0;
+  /* Add this to remove padding */
 }
 
+.message .deletebut {
+  align-self: flex-end;
+  /* Align the delete button to the right */
+}
 .roomname{
   font-size :700%;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -209,22 +209,23 @@ background-color: rgba(255, 0, 0, 0);
   flex-direction: column;
 }
 
-.message{
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
-    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(10px);
-    margin: 1%;
-    flex-direction: row;
-    border-radius: 30px;
-    padding: 1%;
-    overflow-wrap: break-word;
-      word-wrap: break-word;
-      word-break: break-word;
-    width: 70%;
-
-
+  background-image: linear-gradient(to bottom right,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  margin: 1%;
+  border-radius: 30px;
+  padding: 1%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  width: 70%;
 }
-
 
 
 .chat-a{
@@ -538,4 +539,5 @@ margin: 0;
   font-size: 16px;
   padding: 6px 12px;
 }
+
 
