@@ -6,6 +6,10 @@ import "../App.css";
 import SplineCanvas from "./SplineCanvas";
 import { gsap } from "gsap";
 import How from "./How";
+import AboutPage from "./AboutPage";
+import { Contact } from "./Contact";
+
+
 
 const Landing = () => {
   const name = useRef();
@@ -13,11 +17,15 @@ const Landing = () => {
   const textRef = useRef();
   const home = useRef();
   const how = useRef();
+  const about = useRef();
+  const contact = useRef();
   const [isOpen, setisOpen] = useState(false);
+  const [isOpenalert, setisOpenalert] = useState(false);
   const navigate = useNavigate();
   const [pin, setPin] = useState("");
   const [room, setRoom] = useState("");
   const firestore = firebase.firestore();
+
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -56,8 +64,20 @@ const Landing = () => {
         >
           Explore
         </button>
-        <button>About </button>
-        <button>Contact</button>
+        <button
+          onClick={() => {
+            about.current.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          About{" "}
+        </button>
+        <button
+          onClick={() => {
+            contact.current.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Contact
+        </button>
       </div>
     );
   };
@@ -88,19 +108,41 @@ const Landing = () => {
     );
   };
 
-  const search = async () => {
-    setRoom(name.current.value.trim());
-    setPin(code.current.value.trim());
-    const snapshot = await firestore
-      .collection("room")
-      .where("name", "==", room)
-      .where("code", "==", pin)
-      .get();
+  const inputalert = () => {
+    return (
+      <div className="popup">
+        <div className="popup-content">
+          <h1>Enter credential Correctly</h1>
+          <button
+            onClick={() => {
+              setisOpenalert(false);
+            }}
+          >
+            done !
+          </button>
+        </div>
+      </div>
+    );
+  };
 
-    if (snapshot.empty) {
-      setisOpen(true);
-    } else {
-      navigate(`/chat/${room}/${pin}`);
+  const search = async () => {
+    if (room && pin) {
+      setRoom(name.current.value.trim());
+      setPin(code.current.value.trim());
+      const snapshot = await firestore
+        .collection("room")
+        .where("name", "==", room)
+        .where("code", "==", pin)
+        .get();
+
+      if (snapshot.empty) {
+        setisOpen(true);
+      } else {
+        navigate(`/chat/${room}/${pin}`);
+      }
+    }
+    else {
+      setisOpenalert(true);
     }
   };
 
@@ -118,6 +160,7 @@ const Landing = () => {
   return (
     <>
       <div>{isOpen ? pop() : null}</div>
+      <div>{isOpenalert ? inputalert() : null}</div>
       <div className="nav">{navbar()}</div>
       <div className="logo">
         <SplineCanvas />
@@ -139,7 +182,6 @@ const Landing = () => {
                 ref={name}
                 onChange={sett}
                 className="li"
-                onKeyDown={handleKeyPress}
               />
               <input
                 type="number"
@@ -157,6 +199,12 @@ const Landing = () => {
         </div>
         <div ref={how}>
           <How />
+        </div>
+        <div className="Aboutpage-c" ref={about}>
+          <AboutPage/>
+        </div>
+        <div className="contactus" ref={contact}>
+          <Contact/>
         </div>
       </div>
     </>

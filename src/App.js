@@ -7,7 +7,7 @@ import React from "react";
 import Landing from "./components/Landing";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import How from "./components/How";
-import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAoKkzM6WHyexNTq_vhHZXeag4DFfyR2zw",

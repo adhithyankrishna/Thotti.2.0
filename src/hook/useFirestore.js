@@ -15,7 +15,7 @@ const useFirestore = (room, pin) => {
       .where("pin", "==", pin)
       .orderBy("timestamp");
 
-     query.onSnapshot((snapshot) => {
+    query.onSnapshot((snapshot) => {
       const data = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -27,6 +27,9 @@ const useFirestore = (room, pin) => {
   };
   return useQuery(queryKey, fetchdata, {
     initialData: [],
+    refetchOnWindowFocus: false, 
+    refetchOnReconnect: false, 
+    refetchInterval: false, 
   });
 };
 

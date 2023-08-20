@@ -10,6 +10,9 @@ import useFirestore from "../hook/useFirestore";
 import useRandom from "../hook/useRandom";
 import send from "../assets/send.png";
 import hai from "../assets/hai.gif";
+import scrollimg from "../assets/scrollimg.png";
+import deleteimg from "../assets/delete.png";
+
 
 const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
@@ -30,7 +33,9 @@ const Chat = () => {
         behavior: "smooth",
       });
     }
-  }, [msg]);
+  }, [setNewMessage]);
+
+
   const handleSendMessage = async () => {
     const messageData = {
       text: newMessage,
@@ -125,6 +130,16 @@ const Chat = () => {
     }
   };
 
+    useEffect(() => {
+      if (inputContainerRef.current) {
+        console.log("JJ");
+        inputContainerRef.current.scrollIntoView({
+          behavior: "smooth",
+        });
+        scrollToBottom();
+      }
+    }, [msg]);
+
   return (
     <div className="chat-container">
       <div className="roomname">{room}</div>
@@ -138,17 +153,17 @@ const Chat = () => {
               <h1>error{error}</h1>
             ) : !msg ? (
               <h1>Room empty</h1>
-                ) : msg.length === 0 ? (
-                    <div>
-                    <img className="haiimage" src={hai} alt="haiimage" />
-                    <h1>Lets say Hai...</h1>
-                      </div>
+            ) : msg.length === 0 ? (
+              <div>
+                <img className="haiimage" src={hai} alt="haiimage" />
+                <h1>Lets say Hai...</h1>
+              </div>
             ) : (
               msg.map((message, index) => (
                 <div className="message" key={index}>
                   <div className="item">
                     <Linkify>
-                      <p>{message.text}</p>
+                      <p className="message-text">{message.text}</p>
                     </Linkify>
                   </div>
 
@@ -163,7 +178,11 @@ const Chat = () => {
                     className="deletebut"
                     onClick={() => delete_fun(message)}
                   >
-                    🗑️
+                    <img
+                      className="deleteimg"
+                      src={deleteimg}
+                      alt="deleteimage"
+                    />
                   </button>
                 </div>
               ))
@@ -197,15 +216,15 @@ const Chat = () => {
               onKeyDown={handleKeyPress}
             />
           </label>
+
           <button className="sendBut" onClick={handleSendMessage}>
             <div className="sendimg">
               <img className="sendimg" src={send} alt="sendimage" />
             </div>
           </button>
-
           <div className="scroll-button-container">
             <button onClick={scrollToBottom} className="scroll">
-              ⬇️
+              <img className="scrollimg" src={scrollimg} alt="scrollimage" />
             </button>
           </div>
         </div>
