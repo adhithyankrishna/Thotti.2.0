@@ -31,6 +31,10 @@
   margin: 0;
 }
 
+#box-title{
+  color: #000000;
+}
+
 .linput{
   width: 60%;
   height: 50%;
@@ -42,7 +46,7 @@
   margin-top: 20%;
   color: white;
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
-  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.37), rgba(17, 16, 16, 0.212));
   @media (max-width: 768px) {
       /* Styles for screen width up to 768px (e.g., mobile phones) */
       width: 80%;
@@ -55,12 +59,12 @@
   justify-content: center;
  background-color: rgba(255, 0, 0, 0);
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+background-image: linear-gradient(to bottom right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
 backdrop-filter: "blur(10px)";
 border-radius: 30px;
 width: 50%;
 height: 10%;
-color: white;
+color: hsl(0, 0%, 0%);
 font-weight: bolder;
 outline: none;
 border: none;
@@ -88,9 +92,9 @@ font-size: x-large;
   justify-content: center;
 background-color: rgba(255, 0, 0, 0);
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
-  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  background-image: linear-gradient(to bottom right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
   backdrop-filter: "blur(10px)";
-  color: white;
+  color: rgb(0, 0, 0);
   font-weight: bolder;
   border-radius: 30px;
   outline: none;
@@ -114,8 +118,8 @@ background-color: rgba(255, 0, 0, 0);
   align-items:safe;
   justify-content: center;
   height: 100%;
-  width: 80%;
-  margin-left: 3%;
+  width: 100%;
+  margin-left: 10%;
   @media (max-width: 768px) {
       /* Styles for screen width up to 768px (e.g., mobile phones) */
       flex-direction: column;
@@ -171,6 +175,9 @@ background-color: rgba(255, 0, 0, 0);
   padding: 0;
   /* Add this to remove padding */
 }
+.message{
+  color: #000000;
+}
 
 .message .deletebut {
   align-self: flex-end;
@@ -218,8 +225,8 @@ background-color: rgba(255, 0, 0, 0);
   justify-content: space-between;
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
   background-image: linear-gradient(to bottom right,
-      rgba(255, 255, 255, 0.2),
-      rgba(255, 255, 255, 0));
+      rgba(112, 107, 107, 0.342),
+      rgba(255, 255, 255, 0.226));
   backdrop-filter: blur(10px);
   margin: 1%;
   border-radius: 30px;
@@ -256,21 +263,20 @@ background-color: rgba(255, 0, 0, 0);
 
 .en{
   margin: 0;
+  display: flex;
   height: 100%;
   width: 100%;
 }
 
 .title{
 margin: 0;
-  margin-left: 10;
-  padding-left: 10%;
+  margin-left: 3%;
+  padding-left: 3%;
   padding-top: 0%;
-  font-size: 700%;
+  font-size: 500%;
   width: 60%;
-  background-image: -webkit-linear-gradient(left, #ff0080, #8000ff,rgb(253, 236, 0));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+ 
+  color: rgb(214, 123, 123);
   
 
 }
@@ -333,16 +339,16 @@ margin: 0;
   border: none;
   font-size: larger;
   font-weight: 300;
-  background-image: -webkit-linear-gradient(left, #ff0080, #8000ff, rgb(253, 236, 0));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-
+  padding-left: 5%;
+  color: #000000;
+  font-weight: bolder;
+  
 }
 
 .subtitle{
   margin-top: 0;
-  font-size: 80%;
+  font-size: 50%;
+  color: rgb(0, 0, 0);
 }
 
 .how{
@@ -361,17 +367,15 @@ margin: 0;
     padding-top: 0%;
     font-size: 500%;
     width: 80%;
-    background-image: -webkit-linear-gradient(left, #ff0080, #8000ff, rgb(253, 236, 0));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+   
+    color: rgb(177, 85, 85);
 }
 
 .desc{
   background-image: -webkit-linear-gradient(left, #ff0080, #8000ff, rgb(253, 236, 0));
     -webkit-background-clip: text;
     background-clip: text;
-    color: rgba(255, 255, 255, 0.575);
+    color: rgba(0, 0, 0, 0.575);
     backdrop-filter: "blur(10px)";
     justify-content: center;
     font-size:x-large;
@@ -410,12 +414,12 @@ margin: 0;
 
 .desc1{
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
-    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-    backdrop-filter: "blur(50px)";
+  background-image: linear-gradient(to bottom right, rgba(156, 147, 147, 0.274), rgba(255, 255, 255, 0.247));    backdrop-filter: "blur(50px)";
     width: 80%;
     height: 30%;
     margin-left: 5%;
     padding: 1%;
+    color: #000000;
     font-size: larger;
     border-radius: 30px;
 }
@@ -427,7 +431,7 @@ margin: 0;
     position: fixed;
       top: 0;
       left: 0;
-    
+      z-index: 200;
       width: 100%;
       height: 100%;
       background-color: rgba(50, 33, 95, 0);
@@ -505,27 +509,22 @@ margin: 0;
 .nav-container {
   position: sticky;
   top: 0;
+  padding-left: 2%;
   background-color: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 100;
 }
 
-.nav {
+.nav{
   top: 0;
   width: 100%;
-  
+  margin-left: 3%;
   position: fixed;
-  padding: 10px 0;
+  padding: 1%;
   z-index: 100;
 }
 
-.nav button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 6px 12px;
-}
+
 
 .message-text {
   white-space: pre-line;
@@ -545,29 +544,28 @@ margin: 0;
 .Aboutpage{
   width: 75%;
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
-  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  background-image: linear-gradient(to bottom right, rgba(156, 147, 147, 0.274), rgba(255, 255, 255, 0.247));
   backdrop-filter: "blur(50px)";
   border-radius: 30px;
   padding: 5%;
- 
+ color: #000000;
 }
 
 .Aboutpage-c{
   margin-left: 10%;
 }
 
-
 .contact{
-  
   height:max-content;
   display: flex;
   flex-direction: row;
   padding: 2%;
-box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
-  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-  backdrop-filter: "blur(50px)";
+  box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
+  background-image: linear-gradient(to bottom right, rgba(156, 147, 147, 0.274), rgba(255, 255, 255, 0.247));  backdrop-filter: "blur(50px)";
   margin-bottom: 30%;
   border-radius: 30px;
+  color: #000000;
+  margin-bottom: 10%;
 }
 
 
@@ -611,3 +609,5 @@ form textarea{
  margin-bottom: 5%;
   width:50%
 }
+
+

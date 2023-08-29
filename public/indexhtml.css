@@ -1,11 +1,10 @@
 body {
    
 background-attachment: fixed;
-    background-image: url("back.jpg");
+    background-image: url("back.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-color: rgba(0, 0, 0, 0.5);
-   
     margin: 0;
     padding: 0;
     

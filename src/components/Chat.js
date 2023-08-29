@@ -13,7 +13,6 @@ import hai from "../assets/hai.gif";
 import scrollimg from "../assets/scrollimg.png";
 import deleteimg from "../assets/delete.png";
 
-
 const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [file, setFile] = useState(null);
@@ -34,7 +33,6 @@ const Chat = () => {
       });
     }
   }, [setNewMessage]);
-
 
   const handleSendMessage = async () => {
     const messageData = {
@@ -108,7 +106,10 @@ const Chat = () => {
     generateNewRandomNumber();
     const selectedFile = e.target.files[0];
     if (selectedFile) {
-      const fileName = selectedFile.name + randomNumber;
+
+      const fileNam = selectedFile.name;
+      const ext = fileNam.split(".");
+      const fileName = ext[0] + randomNumber + "."+ext[1];
       setFilename(fileName);
       setupfile(fileName);
       setFile(selectedFile);
@@ -130,15 +131,29 @@ const Chat = () => {
     }
   };
 
-    useEffect(() => {
-      if (inputContainerRef.current) {
-        console.log("JJ");
-        inputContainerRef.current.scrollIntoView({
-          behavior: "smooth",
-        });
-        scrollToBottom();
+  const handlePaste = (e) => {
+    const items = e.clipboardData.items;
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.type.indexOf("image") === 0) {
+        const blob = item.getAsFile();
+        const fileName = "pasted_image_" + Date.now();
+        setFilename(fileName);
+        setupfile(fileName);
+        setFile(blob);
       }
-    }, [msg]);
+    }
+  };
+
+  useEffect(() => {
+    if (inputContainerRef.current) {
+      console.log("JJ");
+      inputContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+      scrollToBottom();
+    }
+  }, [msg]);
 
   return (
     <div className="chat-container">
@@ -200,6 +215,7 @@ const Chat = () => {
             value={newMessage}
             onKeyDown={handleKeyPress}
             onChange={(e) => setNewMessage(e.target.value)}
+            onPaste={handlePaste}
           />
           <label
             className="file-label"

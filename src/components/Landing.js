@@ -3,12 +3,10 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
-import SplineCanvas from "./SplineCanvas";
 import { gsap } from "gsap";
 import How from "./How";
 import AboutPage from "./AboutPage";
 import { Contact } from "./Contact";
-
 
 
 const Landing = () => {
@@ -25,7 +23,6 @@ const Landing = () => {
   const [pin, setPin] = useState("");
   const [room, setRoom] = useState("");
   const firestore = firebase.firestore();
-
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -140,8 +137,7 @@ const Landing = () => {
       } else {
         navigate(`/chat/${room}/${pin}`);
       }
-    }
-    else {
+    } else {
       setisOpenalert(true);
     }
   };
@@ -162,9 +158,7 @@ const Landing = () => {
       <div>{isOpen ? pop() : null}</div>
       <div>{isOpenalert ? inputalert() : null}</div>
       <div className="nav">{navbar()}</div>
-      <div className="logo">
-        <SplineCanvas />
-      </div>
+
       <div className="en" ref={home}>
         <div className="title" ref={textRef}>
           <h1>THOTTI</h1>
@@ -173,10 +167,11 @@ const Landing = () => {
             say."
           </h3>
         </div>
+       
         <div className="mid">
           <div className="landing">
             <div className="linput">
-              <h1>GET YOUR THOTTI</h1>
+              <h1 id="box-title">GET YOUR THOTTI</h1>
               <input
                 placeholder="  Enter room name "
                 ref={name}
@@ -197,15 +192,15 @@ const Landing = () => {
             </div>
           </div>
         </div>
-        <div ref={how}>
-          <How />
-        </div>
-        <div className="Aboutpage-c" ref={about}>
-          <AboutPage/>
-        </div>
-        <div className="contactus" ref={contact}>
-          <Contact/>
-        </div>
+      </div>
+      <div ref={how}>
+        <How />
+      </div>
+      <div className="Aboutpage-c" ref={about}>
+        <AboutPage />
+      </div>
+      <div className="contactus" ref={contact}>
+        <Contact />
       </div>
     </>
   );
