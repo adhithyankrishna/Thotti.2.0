@@ -45,7 +45,7 @@ const Chat = () => {
     if (file) {
       const storageRef = firebase.storage().ref();
       const folderRef = storageRef.child("files");
-      const fileRef = folderRef.child(file.name + randomNumber);
+      const fileRef = folderRef.child(filename);
       const uploadTask = fileRef.put(file);
 
       uploadTask.on(
@@ -106,10 +106,9 @@ const Chat = () => {
     generateNewRandomNumber();
     const selectedFile = e.target.files[0];
     if (selectedFile) {
-
       const fileNam = selectedFile.name;
       const ext = fileNam.split(".");
-      const fileName = ext[0] + randomNumber + "."+ext[1];
+      const fileName = ext[0] + randomNumber + "." + ext[1];
       setFilename(fileName);
       setupfile(fileName);
       setFile(selectedFile);
