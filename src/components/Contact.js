@@ -38,9 +38,8 @@ export const Contact = () => {
 
   return (
     <div className="contact">
-      <div className="content-t">
-        <h1>Contact us</h1>
         <p>
+        <h1>Contact us</h1>
           Welcome to our Contact page! Your feedback is essential in helping us
           create a better experience for you. If you've encountered a bug or
           have a suggestion for improvement, we'd love to hear from you. Please
@@ -53,7 +52,7 @@ export const Contact = () => {
           journey to provide you with the best possible communication
           experience.
         </p>
-      </div>
+    <div className="content-t">
       <div className="form">
         <form ref={form} onSubmit={sendEmail}>
           <label>Name</label>
@@ -80,6 +79,7 @@ export const Contact = () => {
         </form>
         {isSubmitted && <p>Form submitted successfully!</p>}
       </div>
+    </div>
     </div>
   );
 };

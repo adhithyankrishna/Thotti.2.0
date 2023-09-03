@@ -5,7 +5,7 @@ const How = () => {
   return (
     <div className="how" id="how-s">
       <div className="title-d">
-        T-Textual<br></br>H-Hub for<br></br>O-Organized<br></br>T-Talking and<br></br>T-Texting<br></br>I-Instant Messaging.
+        <i>T-Textual<br></br>H-Hub for<br></br>O-Organized<br></br>T-Talking and<br></br>T-Texting<br></br>I-Instant Messaging.</i>
       </div>
       <br></br>
       <div className="desc1" align="justify">

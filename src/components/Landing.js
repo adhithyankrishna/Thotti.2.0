@@ -186,6 +186,7 @@ const Landing = () => {
                 onChange={sett}
                 onKeyDown={handleKeyPress}
               />
+              <br></br>
               <button onClick={search} className="lb">
                 GET IN
               </button>
