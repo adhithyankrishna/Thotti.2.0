@@ -26,6 +26,15 @@ const Chat = () => {
   const [randomNumber, generateNewRandomNumber] = useRandom(100, 999999);
   const [upfile, setupfile] = useState("Upload file");
 
+  const [userId] = useState(() => {
+    let id = localStorage.getItem('thottiUserId');
+    if (!id) {
+      id = 'user_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('thottiUserId', id);
+    }
+    return id;
+  });
+
   useEffect(() => {
     if (inputContainerRef.current) {
       inputContainerRef.current.scrollIntoView({
@@ -40,6 +49,7 @@ const Chat = () => {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       room: room,
       pin: pin,
+      userId: userId,
     };
 
     if (file) {
@@ -174,7 +184,7 @@ const Chat = () => {
               </div>
             ) : (
               msg.map((message, index) => (
-                <div className="message" key={index}>
+                <div className={`message ${message.userId === userId ? 'message-sent' : 'message-received'}`} key={index}>
                   <div className="item">
                     <Linkify>
                       <p className="message-text">{message.text}</p>
@@ -188,16 +198,18 @@ const Chat = () => {
                       </Link>
                     )}
                   </div>
-                  <button
-                    className="deletebut"
-                    onClick={() => delete_fun(message)}
-                  >
-                    <img
-                      className="deleteimg"
-                      src={deleteimg}
-                      alt="deleteimage"
-                    />
-                  </button>
+                  {message.userId === userId && (
+                    <button
+                      className="deletebut"
+                      onClick={() => delete_fun(message)}
+                    >
+                      <img
+                        className="deleteimg"
+                        src={deleteimg}
+                        alt="deleteimage"
+                      />
+                    </button>
+                  )}
                 </div>
               ))
             )}

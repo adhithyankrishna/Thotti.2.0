@@ -173,20 +173,19 @@ const Landing = () => {
             <div className="linput">
               <h1 id="box-title">GET YOUR THOTTI</h1>
               <input
-                placeholder="  Enter room name "
+                placeholder="Enter room name"
                 ref={name}
                 onChange={sett}
                 className="li"
               />
               <input
                 type="number"
-                placeholder="  Enter code "
+                placeholder="Enter code"
                 ref={code}
                 className="li"
                 onChange={sett}
                 onKeyDown={handleKeyPress}
               />
-              <br></br>
               <button onClick={search} className="lb">
                 GET IN
               </button>
